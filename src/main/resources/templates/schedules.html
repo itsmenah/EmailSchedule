@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedules</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e8f5e9;
+        }
+
+        caption {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Scheduled Emails</h1>
+<table>
+    <caption>All Scheduled Emails</caption>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Receiver</th>
+        <th>Sender</th>
+        <th>Subject</th>
+        <th>Body</th>
+        <th>Schedule Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Thymeleaf iteration over the list of ScheduledEmail objects -->
+    <tr th:each="email : ${schedules}">
+        <td th:text="${email.id}"></td>
+        <td th:text="${email.receiver}"></td>
+        <td th:text="${email.sender}"></td>
+        <td th:text="${email.subject}"></td>
+        <td th:text="${email.body}"></td>
+        <td th:text="${email.scheduleTime}"></td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
