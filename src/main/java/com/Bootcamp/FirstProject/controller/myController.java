@@ -24,7 +24,8 @@ public class myController {
 
     @GetMapping("/")
     public String hello() {
-        return "Hello World";
+
+        return "helloWorld";
     }
 
     @GetMapping("/schedules.html")
