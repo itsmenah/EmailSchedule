@@ -28,14 +28,14 @@ public class ScheduleEmailService {
     }
 
     public String saveScheduledEmail(@NotNull ScheduledEmail email) {
-        String query = "INSERT INTO ScheduledEmail (receiver, sender, body, subject, Schedule_time) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO scheduledemail (receiver, sender, body, subject, Schedule_time) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(query, email.getReceiver(), email.getSender(),
                 email.getBody(), email.getSubject(), email.getTime());
         return "Email Scheduled Successfully";
     }
 
     public List<ScheduledEmail> getAllScheduledEmails() {
-        String query = "SELECT * FROM ScheduledEmail";
+        String query = "SELECT * FROM scheduledemail";
         return jdbcTemplate.query(query, (rs, rowNum) -> new ScheduledEmail(
                 rs.getInt("id"),
                 rs.getString("receiver"),
@@ -47,7 +47,7 @@ public class ScheduleEmailService {
     }
 
     public ScheduledEmail getScheduledEmailById(int id) {
-        String query = "SELECT * FROM ScheduledEmail WHERE id = ?";
+        String query = "SELECT * FROM scheduledemail WHERE id = ?";
         return jdbcTemplate.queryForObject(query, new Object[]{id}, (rs, rowNum) -> new ScheduledEmail(
                 rs.getInt("id"),
                 rs.getString("receiver"),
@@ -66,7 +66,7 @@ public class ScheduleEmailService {
 
         TransactionStatus status = platformTransactionManager.getTransaction(def);
 
-        String deleteSql = "DELETE FROM ScheduledEmail WHERE id = ?";
+        String deleteSql = "DELETE FROM scheduledemail WHERE id = ?";
         int rowsAfftected = jdbcTemplate.update(deleteSql, id);
         platformTransactionManager.commit(status);
         return rowsAfftected;
