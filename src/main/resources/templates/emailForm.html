@@ -1,16 +1,97 @@
-<!-- src/main/resources/templates/emailForm.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #E0E0E0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0;
+            padding: 10px 0;
+        }
+
+        form {
+            background-color: #1E1E1E;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            background-color: #2E2E2E;
+            color: #E0E0E0;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .form-submit {
+            align-self: flex-end;
+            background-color: #333;
+            color: #E0E0E0;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-submit:hover {
+            background-color: #444;
+        }
+
+        .button-secondary {
+            width: 100%;
+            max-width: 400px;
+            background-color: #555;
+            color: #E0E0E0;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            margin: 0 auto;
+            text-align: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .button-secondary:hover {
+            background-color: #666;
+        }
+
+    </style>
     <script>
-        // Function to handle form submission
         function submitForm(event) {
             event.preventDefault();
 
-            // Gather form data
             const formData = {
                 receiver: document.getElementById('receiver').value,
                 sender: document.getElementById('sender').value,
@@ -19,7 +100,6 @@
                 time: document.getElementById('time').value,
             };
 
-            // Make a POST request to send JSON data
             fetch('/AddEmail', {
                 method: 'POST',
                 headers: {
@@ -31,33 +111,39 @@
             .then(data => {
                 alert("Email details submitted successfully!");
                 console.log(data);
+                window.location.href = 'schedules.html';
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert("Error occurred while submitting the email.");
             });
         }
+
+        function redirectToSchedules() {
+            window.location.href = 'schedules.html';
+        }
     </script>
 </head>
 <body>
-<h1>Email Form</h1>
+<h1>Add Email</h1>
 <form id="emailForm" onsubmit="submitForm(event)">
-    <label for="receiver">Receiver:</label><br>
-    <input type="email" id="receiver" name="receiver" required><br><br>
+    <label for="receiver">Receiver:</label>
+    <input type="email" id="receiver" name="receiver" required>
 
-    <label for="sender">Sender:</label><br>
-    <input type="email" id="sender" name="sender" required><br><br>
+    <label for="sender">Sender:</label>
+    <input type="email" id="sender" name="sender" required>
 
-    <label for="body">Body:</label><br>
-    <textarea id="body" name="body" required></textarea><br><br>
+    <label for="body">Body:</label>
+    <textarea id="body" name="body" rows="4" required></textarea>
 
-    <label for="subject">Subject:</label><br>
-    <input type="text" id="subject" name="subject" required><br><br>
+    <label for="subject">Subject:</label>
+    <input type="text" id="subject" name="subject" required>
 
-    <label for="time">Time (yyyy-MM-dd):</label><br>
-    <input type="date" id="time" name="time" required><br><br>
+    <label for="time">Time (yyyy-MM-ddThh:mm):</label>
+    <input type="datetime-local" id="time" name="time" required>
 
-    <button type="submit">Submit</button>
+    <button class="form-submit" type="submit">Submit</button>
 </form>
+<button class="button-secondary" onclick="redirectToSchedules()">See Scheduled Emails</button>
 </body>
 </html>

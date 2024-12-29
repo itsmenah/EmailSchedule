@@ -31,7 +31,10 @@ public class ScheduleEmailService {
         String query = "INSERT INTO scheduledemail (receiver, sender, body, subject, Schedule_time) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(query, email.getReceiver(), email.getSender(),
                 email.getBody(), email.getSubject(), email.getTime());
-        return "Email Scheduled Successfully";
+
+        query = "SELECT id FROM scheduledemail ORDER BY id DESC LIMIT 1";
+        int i= jdbcTemplate.queryForObject(query, Integer.class);
+        return "Email Scheduled Successfully with id = "+Integer.toString(i);
     }
 
     public List<ScheduledEmail> getAllScheduledEmails() {
@@ -54,7 +57,7 @@ public class ScheduleEmailService {
                 rs.getString("sender"),
                 rs.getString("body"),
                 rs.getString("subject"),
-                rs.getTimestamp("time")
+                rs.getTimestamp("Schedule_time")
         ));
     }
 

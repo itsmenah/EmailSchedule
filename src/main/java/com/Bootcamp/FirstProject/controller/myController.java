@@ -44,11 +44,12 @@ public class myController {
 
 
     @PostMapping("/AddEmail")
-    public int EmailAdd(@RequestBody ScheduledEmail se)
+    @ResponseBody
+    public String EmailAdd(@RequestBody ScheduledEmail se)
     {
         String status =  scheduleEmailService.saveScheduledEmail(se);
 
-        return 0;
+        return status;
     }
 
     @GetMapping("/emailForm.html")

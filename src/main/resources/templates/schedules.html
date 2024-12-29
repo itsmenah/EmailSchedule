@@ -6,6 +6,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #ddd;
             margin: 20px;
         }
 
@@ -13,33 +15,56 @@
             border-collapse: collapse;
             width: 100%;
             margin-top: 20px;
+            border: 1px solid #555;
         }
 
         th, td {
             text-align: left;
             padding: 8px;
+            border: 1px solid #444;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #333;
         }
 
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #444;
         }
 
         tr:hover {
-            background-color: #e8f5e9;
+            background-color: #555;
         }
 
         caption {
             font-size: 1.5em;
             margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .button {
+            padding: 10px 15px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #555;
         }
     </style>
 </head>
 <body>
 <h1>Scheduled Emails</h1>
+<a href="emailForm.html" class="button">Add Email</a>
+
 <table>
     <caption>All Scheduled Emails</caption>
     <thead>
@@ -61,7 +86,6 @@
         <td th:text="${email.subject}"></td>
         <td th:text="${email.body}"></td>
         <td th:text="${email.time}"></td>
-
     </tr>
     </tbody>
 </table>
